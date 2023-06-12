@@ -47,6 +47,9 @@ TagManager:
   - name: Tree
     uniqueID: 1001778139
     locked: 0
+  - name: Collisions
+    uniqueID: 3914906461
+    locked: 0
   - name: Player
     uniqueID: 1370093005
     locked: 0
