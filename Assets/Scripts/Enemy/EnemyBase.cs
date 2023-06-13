@@ -6,67 +6,56 @@ using UnityEngine;
 
 public class EnemyBase : ScriptableObject
 {
-    [SerializeField] new string name;
+    [SerializeField] private new string name;
 
-    [TextArea]
-    [SerializeField] string description;
+    public string Name { get { return name; } }
 
-    [SerializeField] Sprite frontSprite;
-    [SerializeField] Sprite backSprite;
+    [SerializeField] private string description;
 
-    [SerializeField] EnemyType type;
+    public string Description { get { return description; } }
 
-    // Base Stats
-    [SerializeField] int maxHp;
-    [SerializeField] short attack;
-    [SerializeField] short defense;
-    [SerializeField] short speed;
+    [SerializeField] private Sprite frontSprite;
 
-    public string Name
-    {
-        get { return name; }
-    }
+    public Sprite FrontSprite { get { return frontSprite; } }
 
-    public string Description
-    {
-        get { return description; }
-    }
+    [SerializeField] private Sprite backSprite;
 
-    public Sprite FrontSprite
-    {
-        get { return frontSprite; }
-    }
+    public Sprite BackSprite { get { return backSprite; } }
 
-    public Sprite BackSprite
-    {
-        get { return backSprite; }
-    }
+    [SerializeField] private EnemyType type;
 
-    public EnemyType Type
-    {
-        get { return type; }
-    }
+    public EnemyType Type { get { return type; } }
 
-    public int MaxHp
-    {
-        get { return maxHp; }
-    }
+    [SerializeField] private int maxHp;
 
-    public short Attack
-    {
-        get { return attack; }
-    }
+    public int MaxHp { get { return maxHp; } }
 
-    public short Defense
-    {
-        get { return defense; }
-    }
+    [SerializeField] private short attack;
 
-    public short Speed
-    {
-        get { return speed; }
-    }
+    public short Attack { get { return attack; } }
 
+    [SerializeField] private short defense;
+
+    public short Defense { get { return defense; } }
+
+    [SerializeField] private short speed;
+
+    public short Speed { get { return speed; } }
+
+    [SerializeField] List<LearnableMove> learnableMoves;
+
+    public List<LearnableMove> LearnableMoves { get { return learnableMoves; } }
+
+
+}
+
+[System.Serializable]
+public class LearnableMove
+{
+    [SerializeField] MoveBase move;
+    public MoveBase Base { get { return move; } }
+    [SerializeField] byte level;
+    public short Level { get { return level; } }    
 }
 
 public enum EnemyType

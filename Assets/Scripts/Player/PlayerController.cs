@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
                 }
 
                 animator.SetBool("isMoving", success);
+                CheckForEncounters();
             }
             else
             {
@@ -64,8 +65,6 @@ public class PlayerController : MonoBehaviour
             {
                 spriteRenderer.flipX = false;
             }
-
-            CheckForEncounters();
         }
     }
 
@@ -116,7 +115,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Physics2D.OverlapCircle(transform.position, 0.1f, triggerFights) != null)
         {
-            if (Random.Range(1, 1001) <= 10)
+            if (Random.Range(1, 1000) <= 10)
             {
                 Debug.Log("Pelea");
             }
