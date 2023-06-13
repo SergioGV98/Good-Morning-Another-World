@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -41,15 +42,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Ground
-    uniqueID: 1626490461
-    locked: 0
-  - name: Tree
-    uniqueID: 1001778139
-    locked: 0
   - name: Collisions
     uniqueID: 3914906461
     locked: 0
   - name: Player
     uniqueID: 1370093005
+    locked: 0
+  - name: Enemy
+    uniqueID: 1991755583
     locked: 0
