@@ -10711,12 +10711,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4392327683469081165, guid: 1e21d0219f244ae49bac2bb08dbe0479, type: 3}
+      propertyPath: m_Size.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4392327683469081165, guid: 1e21d0219f244ae49bac2bb08dbe0479, type: 3}
+      propertyPath: m_Size.y
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 4392327683469081165, guid: 1e21d0219f244ae49bac2bb08dbe0479, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1791679681, guid: 9c56bb9ae5f1a274db909d669a6c026b, type: 3}
+    - target: {fileID: 4392327683469081165, guid: 1e21d0219f244ae49bac2bb08dbe0479, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4392327683469081165, guid: 1e21d0219f244ae49bac2bb08dbe0479, type: 3}
       propertyPath: m_SortingLayerID
       value: 1370093005
+      objectReference: {fileID: 0}
+    - target: {fileID: 4392327683469081165, guid: 1e21d0219f244ae49bac2bb08dbe0479, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8956885901730097303, guid: 1e21d0219f244ae49bac2bb08dbe0479, type: 3}
       propertyPath: m_Name

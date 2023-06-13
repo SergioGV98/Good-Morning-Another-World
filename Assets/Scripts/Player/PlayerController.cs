@@ -10,13 +10,17 @@ public class PlayerController : MonoBehaviour
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
     Vector2 movementInput;
+    SpriteRenderer spriteRenderer;
     Rigidbody2D rb;
+    Animator animator;
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void FixedUpdate()
@@ -34,7 +38,23 @@ public class PlayerController : MonoBehaviour
                     success = TryMove(new Vector2(0, movementInput.y));
                 }
             }
+
+            animator.SetBool("isMoving", success);
+
+        } else
+        {
+            animator.SetBool("isMoving", false);
         }
+
+        // Direccion del sprite segun donde mire
+        if (movementInput.x < 0)
+        {
+            spriteRenderer.flipX = true;
+        } else if (movementInput.x > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+
     }
 
     private bool TryMove(Vector2 direction)
