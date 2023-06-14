@@ -8,9 +8,9 @@ public class Move
 
     public short mana { get; set; }
 
-    public Move(MoveBase pBase, short pMana)
+    public Move(MoveBase pBase)
     {
         Base = pBase;
-        mana = pMana;
+        mana = pBase.Mana;
     }
 }

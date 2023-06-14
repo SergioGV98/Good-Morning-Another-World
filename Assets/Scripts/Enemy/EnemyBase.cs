@@ -18,10 +18,6 @@ public class EnemyBase : ScriptableObject
 
     public Sprite FrontSprite { get { return frontSprite; } }
 
-    [SerializeField] private Sprite backSprite;
-
-    public Sprite BackSprite { get { return backSprite; } }
-
     [SerializeField] private EnemyType type;
 
     public EnemyType Type { get { return type; } }

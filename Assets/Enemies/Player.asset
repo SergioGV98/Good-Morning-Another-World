@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812dc363dbd30e24dae125211f44fd3a, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  name: Sergio
-  description: 
+  name: Sapo
+  description: Se alimenta de las almas de discord
   frontSprite: {fileID: -768039942, guid: 9c56bb9ae5f1a274db909d669a6c026b, type: 3}
   backSprite: {fileID: -724083987, guid: 9c56bb9ae5f1a274db909d669a6c026b, type: 3}
   type: 3
