@@ -6,6 +6,7 @@ using UnityEngine;
 public class BattleDialogBox : MonoBehaviour
 {
     [SerializeField] int lettersPerSecond;
+    [SerializeField] Color highlightedColor;
     [SerializeField] TextMeshProUGUI dialogText;
     [SerializeField] GameObject actionSelector;
     [SerializeField] GameObject magicSelector;
@@ -44,6 +45,51 @@ public class BattleDialogBox : MonoBehaviour
     {
         magicSelector.SetActive(enabled);
         magicDetails.SetActive(enabled);
+    }
+
+    public void UpdateActionSelection(byte selectedAction)
+    {
+        for(byte i = 0; i  < actionTexts.Count; i++)
+        {
+            if (i == selectedAction)
+            {
+                actionTexts[i].color = highlightedColor;
+            } else
+            {
+                actionTexts[i].color = Color.black;
+            }
+        }
+    }
+
+    public void UpdateMagicSelection (byte selectedMagic, Move magic)
+    {
+        for (byte i = 0; i < actionTexts.Count; i++)
+        {
+            if(i == selectedMagic)
+            {
+                magicTexts[i].color = highlightedColor;
+            } else
+            {
+                magicTexts[i].color = Color.black;
+            }
+        }
+
+        manaText.text = $"Mana {magic.Base.Mana}";
+        magicTypeText.text = magic.Base.Type.ToString();
+    }
+
+    public void SetMagicMovesNames(List<Move> magicMoves)
+    {
+        for (byte i = 0;i < magicTexts.Count; i++)
+        {
+            if(i < magicMoves.Count)
+            {
+                magicTexts[i].text = magicMoves[i].Base.Name;
+            } else
+            {
+                magicTexts[i].text = "-";
+            }
+        }
     }
 
 }

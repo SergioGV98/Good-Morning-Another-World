@@ -19,4 +19,12 @@ MonoBehaviour:
   attack: 5
   defense: 5
   speed: 5
-  learnableMoves: []
+  learnableMoves:
+  - move: {fileID: 11400000, guid: 501968bbe7cbbef48b7db977ba89b98b, type: 2}
+    level: 1
+  - move: {fileID: 11400000, guid: 771807f5e91a9ed43bb63bdf801ccb4b, type: 2}
+    level: 2
+  - move: {fileID: 11400000, guid: e67a7df1030825f46bbff06b35941c82, type: 2}
+    level: 3
+  - move: {fileID: 11400000, guid: f86764f8d41901340a396f7f3c898656, type: 2}
+    level: 4
