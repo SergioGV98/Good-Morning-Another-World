@@ -6170,11 +6170,20 @@ MonoBehaviour:
   dialogText: {fileID: 914359532}
   actionSelector: {fileID: 33163459}
   magicSelector: {fileID: 844426577}
-  magicDetails: {fileID: 0}
-  actionTexts: []
-  magicTexts: []
-  manaText: {fileID: 0}
-  magicTypeText: {fileID: 0}
+  magicDetails: {fileID: 1151661691}
+  actionTexts:
+  - {fileID: 836628561}
+  - {fileID: 17998363}
+  - {fileID: 1010321520}
+  magicTexts:
+  - {fileID: 1093756713}
+  - {fileID: 2085976760}
+  - {fileID: 456752581}
+  - {fileID: 2118045190}
+  - {fileID: 1524845030}
+  - {fileID: 2092136207}
+  manaText: {fileID: 76132717}
+  magicTypeText: {fileID: 1898095601}
 --- !u!1 &599227908
 GameObject:
   m_ObjectHideFlags: 0
@@ -8274,7 +8283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1151661692}
   m_Layer: 0
-  m_Name: MAgicDetails
+  m_Name: MagicDetails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
