@@ -9,11 +9,23 @@ public class BattleHud : MonoBehaviour
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] HPBar hpBar;
+    [SerializeField] ManaBar manaBar;
 
-    public void SetData(Enemy enemy)
+    public void SetData(object character)
     {
-        nameText.text = enemy.Base.Name;
-        levelText.text = "Lvl " + enemy.Level;
-        hpBar.SetHP((float) enemy.HP / enemy.MaxHP);
+        if (character is Enemy)
+        {
+            Enemy enemy = (Enemy)character;
+            nameText.text = enemy.Base.Name;
+            levelText.text = "Lvl " + enemy.Level;
+            hpBar.SetHP((float)enemy.HP / enemy.MaxHP);
+        } else if (character is Player)
+        {
+            Player player = (Player)character;
+            nameText.text = player.Base.Name;
+            levelText.text = "Lvl " + player.Level;
+            hpBar.SetHP((float)player.HP / player.MaxHP);
+            manaBar.SetMana(player.mana / player.MaxMana);
+        }
     }
 }

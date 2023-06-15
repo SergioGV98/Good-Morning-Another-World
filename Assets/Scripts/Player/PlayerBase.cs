@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Enemy", menuName = "Enemies/Create new enemy")]
+[CreateAssetMenu(fileName = "Player", menuName = "Player/Create new player")]
 
-public class EnemyBase : ScriptableObject
+public class PlayerBase : ScriptableObject
 {
     [SerializeField] private new string name;
 
@@ -14,13 +14,13 @@ public class EnemyBase : ScriptableObject
 
     public Sprite FrontSprite { get { return frontSprite; } }
 
-    [SerializeField] private EnemyType type;
-
-    public EnemyType Type { get { return type; } }
-
     [SerializeField] private int maxHp;
 
     public int MaxHp { get { return maxHp; } }
+
+    [SerializeField] private int maxMana;
+
+    public int MaxMana { get {  return maxMana; } }
 
     [SerializeField] private short attack;
 
@@ -38,22 +38,4 @@ public class EnemyBase : ScriptableObject
 
     public List<LearnableMove> LearnableMoves { get { return learnableMoves; } }
 
-
-}
-
-[System.Serializable]
-public class LearnableMove
-{
-    [SerializeField] MoveBase move;
-    public MoveBase Base { get { return move; } }
-    [SerializeField] byte level;
-    public short Level { get { return level; } }    
-}
-
-public enum EnemyType
-{
-    Normal,
-    Fire,
-    Water,
-    Electric
 }

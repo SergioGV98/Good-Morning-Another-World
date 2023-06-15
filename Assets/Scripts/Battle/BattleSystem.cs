@@ -5,7 +5,7 @@ using UnityEngine;
 public class BattleSystem : MonoBehaviour
 {
 
-    [SerializeField] BattleUnit playerUnit;
+    [SerializeField] PlayerUnit playerUnit;
     [SerializeField] BattleHud playerHud;
     [SerializeField] BattleUnit enemyUnit;
     [SerializeField] BattleHud enemyHud;
@@ -18,7 +18,7 @@ public class BattleSystem : MonoBehaviour
     public void SetupBattle()
     {
         playerUnit.Setup();
-        playerHud.SetData(playerUnit.Enemy);
+        playerHud.SetData(playerUnit.player);
         enemyUnit.Setup();
         enemyHud.SetData(enemyUnit.Enemy);  
     }
