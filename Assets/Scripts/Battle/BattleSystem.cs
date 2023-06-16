@@ -169,6 +169,8 @@ public class BattleSystem : MonoBehaviour
 
         dialogBox.UpdateMagicSelection(currentMagicMove, playerUnit.player.Moves[currentMagicMove]);
 
+        // En un futuro comprobar si tienes mana para esa habilidad.
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             dialogBox.EnableMagicSelector(false);
