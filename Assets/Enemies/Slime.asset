@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Slime
   m_EditorClassIdentifier: 
   name: Slime
-  description: 
   frontSprite: {fileID: 60251746, guid: c4beb52344a4b294b8cd3485a0d0dca4, type: 3}
   type: 0
   maxHp: 20
   attack: 5
   defense: 2
   speed: 8
-  learnableMoves: []
+  learnableMoves:
+  - move: {fileID: 11400000, guid: c4c7e3b65ec9b3941847d3da52d7b5af, type: 2}
+    level: 0

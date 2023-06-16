@@ -69,7 +69,6 @@ public class Enemy
         float a = (2 * attacker.Level + 10) / 250f;
         float d = a * move.Base.Power * ((float)attacker.Attack / Defense) + 2;
         int damage = Mathf.FloorToInt(d * modifiers);
-
         HP -= damage;
 
         if(HP <= 0)

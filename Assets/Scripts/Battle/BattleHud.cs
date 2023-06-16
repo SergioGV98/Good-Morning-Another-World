@@ -27,7 +27,7 @@ public class BattleHud : MonoBehaviour
             nameText.text = player.Base.Name;
             levelText.text = "Lvl " + player.Level;
             hpBar.SetHP((float)player.HP / player.MaxHP);
-            manaBar.SetMana((float) player.mana / player.MaxMana);
+            manaBar.SetMana((float)player.mana / player.MaxMana);
         }
     }
 
@@ -42,8 +42,11 @@ public class BattleHud : MonoBehaviour
         {
             Player player = (Player)character;
             hpBar.SetHP((float)player.HP / player.MaxHP);
-            manaBar.SetMana(player.mana / player.MaxMana);
         }
     }
 
+    public void UpdateMana(Player character)
+    {
+        manaBar.SetMana((float) character.mana / character.MaxMana);
+    }
 }

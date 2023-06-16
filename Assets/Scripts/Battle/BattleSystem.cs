@@ -64,16 +64,15 @@ public class BattleSystem : MonoBehaviour
     IEnumerator PerformPlayerMagic()
     {
         state = BattleState.Busy;
-
         var magic = playerUnit.player.Moves[currentMagicMove];
         yield return dialogBox.TypeDialog($"{playerUnit.player.Base.Name} uso {magic.Base.name}");
-
         yield return new WaitForSeconds(1f);
         bool isFainted = enemyUnit.Enemy.TakeDamage(magic, playerUnit.player);
+        bool isOutMana = playerUnit.player.UpdateMana(magic);
         enemyHud.UpdateHP(enemyUnit.Enemy);
-       // playerUnit.player.TakeMana(magic, playerUnit.player); Revisar
+        playerHud.UpdateMana(playerUnit.player);
 
-        if(isFainted)
+        if (isFainted)
         {
             yield return dialogBox.TypeDialog($"{enemyUnit.Enemy.Base.Name} fue derrotado.");
         } else

@@ -24,7 +24,7 @@ public class Player
     {
         get
         {
-            return Mathf.FloorToInt(Base.MaxMana * Level) + 10;
+            return Mathf.FloorToInt(Base.MaxMana);
         }
     }
 
@@ -93,10 +93,9 @@ public class Player
 
     }
 
-    public bool TakeMana(Move move, Player attacker)
+    public bool UpdateMana(Move move)
     {
         mana -= move.Base.Mana;
-
         if(mana <= 0)
         {
             mana = 0;

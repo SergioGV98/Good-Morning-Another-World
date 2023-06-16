@@ -6,8 +6,8 @@ public class ManaBar : MonoBehaviour
 {
     [SerializeField] GameObject mana;
 
-    public void SetMana(float mana)
+    public void SetMana(float manaa)
     {
-        this.mana.transform.localScale = new Vector3(mana, 1f);
+        mana.transform.localScale = new Vector3(manaa, 1f);
     }
 }
