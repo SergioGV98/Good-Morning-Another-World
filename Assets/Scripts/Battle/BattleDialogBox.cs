@@ -63,14 +63,14 @@ public class BattleDialogBox : MonoBehaviour
 
     public void UpdateMagicSelection (byte selectedMagic, Move magic)
     {
-        for (byte i = 0; i < actionTexts.Count; i++)
+        for (byte i = 0; i < magicTexts.Count; i++)
         {
             if(i == selectedMagic)
             {
                 magicTexts[i].color = highlightedColor;
             } else
             {
-                magicTexts[i].color = Color.black;
+                magicTexts[i].color = Color.white;
             }
         }
 

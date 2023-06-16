@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class BattleHud : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class BattleHud : MonoBehaviour
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] HPBar hpBar;
     [SerializeField] ManaBar manaBar;
+
 
     public void SetData(object character)
     {
@@ -25,7 +27,23 @@ public class BattleHud : MonoBehaviour
             nameText.text = player.Base.Name;
             levelText.text = "Lvl " + player.Level;
             hpBar.SetHP((float)player.HP / player.MaxHP);
+            manaBar.SetMana((float) player.mana / player.MaxMana);
+        }
+    }
+
+    public void UpdateHP(object character)
+    {
+        if (character is Enemy)
+        {
+            Enemy enemy = (Enemy)character;
+            hpBar.SetHP((float)enemy.HP / enemy.MaxHP);
+        }
+        else if (character is Player)
+        {
+            Player player = (Player)character;
+            hpBar.SetHP((float)player.HP / player.MaxHP);
             manaBar.SetMana(player.mana / player.MaxMana);
         }
     }
+
 }

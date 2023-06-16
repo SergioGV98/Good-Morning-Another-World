@@ -61,6 +61,48 @@ public class BattleSystem : MonoBehaviour
         dialogBox.EnableMagicSelector(true);
     }
 
+    IEnumerator PerformPlayerMagic()
+    {
+        state = BattleState.Busy;
+
+        var magic = playerUnit.player.Moves[currentMagicMove];
+        yield return dialogBox.TypeDialog($"{playerUnit.player.Base.Name} uso {magic.Base.name}");
+
+        yield return new WaitForSeconds(1f);
+        bool isFainted = enemyUnit.Enemy.TakeDamage(magic, playerUnit.player);
+        enemyHud.UpdateHP(enemyUnit.Enemy);
+       // playerUnit.player.TakeMana(magic, playerUnit.player); Revisar
+
+        if(isFainted)
+        {
+            yield return dialogBox.TypeDialog($"{enemyUnit.Enemy.Base.Name} fue derrotado.");
+        } else
+        {
+            StartCoroutine(EnemyMove());
+        }
+    }
+
+    IEnumerator EnemyMove()
+    {
+        state = BattleState.EnemyMove;
+
+        var move = enemyUnit.Enemy.GetRandomMove();
+        yield return dialogBox.TypeDialog($"{enemyUnit.Enemy.Base.Name} uso {move.Base.Name}");
+
+        yield return new WaitForSeconds(1f);
+        bool isFainted = playerUnit.player.TakeDamage(move, enemyUnit.Enemy);
+        playerHud.UpdateHP(playerUnit.player);
+
+        if (isFainted)
+        {
+            yield return dialogBox.TypeDialog($"{playerUnit.player.Base.Name} fuiste derrotado.");
+        }
+        else
+        {
+            PlayerAction();
+        }
+    }
+
     private void Update()
     {
         if(state == BattleState.PlayerAction)
@@ -116,7 +158,6 @@ public class BattleSystem : MonoBehaviour
             if (currentMagicMove < playerUnit.player.Moves.Count -1)
             {
                 ++currentMagicMove;
-                Debug.Log(currentMagicMove);
             }
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -124,27 +165,16 @@ public class BattleSystem : MonoBehaviour
             if (currentMagicMove > 0)
             {
                 --currentMagicMove;
-                Debug.Log(currentMagicMove);
             }
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (currentMagicMove < playerUnit.player.Moves.Count -2)
-            {
-                currentMagicMove += 2; ;
-                Debug.Log(currentMagicMove);
-            }
-        }
-        else if(Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if(currentMagicMove > 1)
-            {
-                currentMagicMove -= 2;
-                Debug.Log(currentMagicMove);
-            }
-        }
-
 
         dialogBox.UpdateMagicSelection(currentMagicMove, playerUnit.player.Moves[currentMagicMove]);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            dialogBox.EnableMagicSelector(false);
+            dialogBox.EnableDialogText(true);
+            StartCoroutine(PerformPlayerMagic());
+        }
     }
 }
