@@ -36,6 +36,7 @@ public class BattleSystem : MonoBehaviour
         playerHud.SetData(playerUnit.player);
         enemyUnit.Setup();
         enemyHud.SetData(enemyUnit.Enemy);
+        dialogBox.SetBattleSystem(this);
 
         dialogBox.SetMagicMovesNames(playerUnit.player.Moves);
 
@@ -166,7 +167,6 @@ public class BattleSystem : MonoBehaviour
                 --currentMagicMove;
             }
         }
-
         dialogBox.UpdateMagicSelection(currentMagicMove, playerUnit.player.Moves[currentMagicMove]);
 
         // En un futuro comprobar si tienes mana para esa habilidad.
@@ -178,4 +178,14 @@ public class BattleSystem : MonoBehaviour
             StartCoroutine(PerformPlayerMagic());
         }
     }
+
+    public Boolean HaveMana(Move magic)
+    {
+        if (playerUnit.player.mana >= magic.mana)
+        {
+            return true;
+        }
+        return false;
+    }
+
 }

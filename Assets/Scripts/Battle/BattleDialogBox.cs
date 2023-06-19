@@ -15,6 +15,12 @@ public class BattleDialogBox : MonoBehaviour
     [SerializeField] List<TextMeshProUGUI> magicTexts;
     [SerializeField] TextMeshProUGUI manaText;
     [SerializeField] TextMeshProUGUI magicTypeText;
+    private BattleSystem battleSystem;
+
+    public void SetBattleSystem(BattleSystem system)
+    {
+        battleSystem = system;
+    }
 
     public void SetDialog(string dialogText)
     {
@@ -73,9 +79,17 @@ public class BattleDialogBox : MonoBehaviour
                 magicTexts[i].color = Color.white;
             }
         }
-
-        manaText.text = $"Mana {magic.Base.Mana}";
-        magicTypeText.text = magic.Base.Type.ToString();
+        if (battleSystem.HaveMana(magic) || magic.mana == 0)
+        { // Tiene mana
+            manaText.text = $"Mana {magic.Base.Mana}";
+            manaText.color = Color.white;
+            magicTypeText.text = magic.Base.Type.ToString();
+        } else // No tiene mana
+        {
+            manaText.text = $"Mana {magic.Base.Mana}";
+            manaText.color = Color.red;
+            magicTypeText.text = magic.Base.Type.ToString();
+        }
     }
 
     public void SetMagicMovesNames(List<Move> magicMoves)
