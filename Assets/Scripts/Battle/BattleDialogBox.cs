@@ -35,6 +35,8 @@ public class BattleDialogBox : MonoBehaviour
             dialogText.text += letter;
             yield return new WaitForSeconds(1f / lettersPerSecond);
         }
+
+        yield return new WaitForSeconds(1f);
     }
 
     public void EnableDialogText(bool enabled)
@@ -80,11 +82,11 @@ public class BattleDialogBox : MonoBehaviour
             }
         }
         if (battleSystem.HaveMana(magic) || magic.mana == 0)
-        { // Tiene mana
+        { // Tiene mana para la magia
             manaText.text = $"Mana {magic.Base.Mana}";
             manaText.color = Color.white;
             magicTypeText.text = magic.Base.Type.ToString();
-        } else // No tiene mana
+        } else // No tiene mana para la magia
         {
             manaText.text = $"Mana {magic.Base.Mana}";
             manaText.color = Color.red;

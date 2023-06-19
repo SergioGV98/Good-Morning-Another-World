@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Slime
   frontSprite: {fileID: 60251746, guid: c4beb52344a4b294b8cd3485a0d0dca4, type: 3}
-  type: 0
+  type: 6
   maxHp: 20
   attack: 5
   defense: 2

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Enemy;
 
 public class Player 
 {
@@ -73,9 +74,21 @@ public class Player
         }
     }
 
-    public bool TakeDamage(Move move, Enemy attacker)
+    public DamageDetails TakeDamage(Move move, Enemy attacker)
     {
-        float modifiers = Random.Range(0.85f, 1f);
+        float critical = 1f;
+        if (Random.value * 100f < 5.25f)
+        {
+            critical = 2f;
+        }
+
+        var damageDetails = new DamageDetails()
+        {
+            Critical = critical,
+            Fainted = false
+        };
+
+        float modifiers = Random.Range(0.85f, 1f) * critical;
         float a = (2 * attacker.Level + 10) / 250f;
         float d = a * move.Base.Power * ((float)attacker.Attack / Defense) + 2;
         int damage = Mathf.FloorToInt(d * modifiers);
@@ -84,12 +97,14 @@ public class Player
         if (HP <= 0)
         {
             HP = 0;
-            return true;
+            damageDetails.Fainted = true;
         }
         else
         {
-            return false;
+            damageDetails.Fainted = false;
         }
+
+        return damageDetails;
 
     }
 

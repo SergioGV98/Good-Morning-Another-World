@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Enemy;
 
 public enum BattleState
 {
@@ -41,9 +42,6 @@ public class BattleSystem : MonoBehaviour
         dialogBox.SetMagicMovesNames(playerUnit.player.Moves);
 
         yield return dialogBox.TypeDialog($"Un { enemyUnit.Enemy.Base.Name} apareció.");
-
-        yield return new WaitForSeconds(0.35f);
-
         PlayerAction();
     }
 
@@ -67,13 +65,13 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.Busy;
         var magic = playerUnit.player.Moves[currentMagicMove];
         yield return dialogBox.TypeDialog($"{playerUnit.player.Base.Name} uso {magic.Base.name}");
-        yield return new WaitForSeconds(1f);
-        bool isFainted = enemyUnit.Enemy.TakeDamage(magic, playerUnit.player);
+        var damageDetails = enemyUnit.Enemy.TakeDamage(magic, playerUnit.player);
         bool isOutMana = playerUnit.player.UpdateMana(magic);
-        enemyHud.UpdateHP(enemyUnit.Enemy);
-        playerHud.UpdateMana(playerUnit.player);
+        yield return enemyHud.UpdateHP(enemyUnit.Enemy);
+        yield return playerHud.UpdateMana(playerUnit.player);
+        yield return ShowDamageDetails(damageDetails);
 
-        if (isFainted)
+        if (damageDetails.Fainted)
         {
             yield return dialogBox.TypeDialog($"{enemyUnit.Enemy.Base.Name} fue derrotado.");
         } else
@@ -88,12 +86,11 @@ public class BattleSystem : MonoBehaviour
 
         var move = enemyUnit.Enemy.GetRandomMove();
         yield return dialogBox.TypeDialog($"{enemyUnit.Enemy.Base.Name} uso {move.Base.Name}");
+        var damageDetails = playerUnit.player.TakeDamage(move, enemyUnit.Enemy);
+        yield return playerHud.UpdateHP(playerUnit.player);
+        yield return ShowDamageDetailsPlayer(damageDetails);
 
-        yield return new WaitForSeconds(1f);
-        bool isFainted = playerUnit.player.TakeDamage(move, enemyUnit.Enemy);
-        playerHud.UpdateHP(playerUnit.player);
-
-        if (isFainted)
+        if (damageDetails.Fainted)
         {
             yield return dialogBox.TypeDialog($"{playerUnit.player.Base.Name} fuiste derrotado.");
         }
@@ -102,6 +99,31 @@ public class BattleSystem : MonoBehaviour
             PlayerAction();
         }
     }
+
+    IEnumerator ShowDamageDetails(DamageDetails damageDetails)
+    {
+        if(damageDetails.Critical > 1f)
+        {
+            yield return dialogBox.TypeDialog("¡Golpe critico!");
+        }
+
+        if(damageDetails.Type > 1f)
+        {
+            yield return dialogBox.TypeDialog("¡El golpe hace tambalearse al rival!");
+        } else if (damageDetails.Type < 1f)
+        {
+            yield return dialogBox.TypeDialog("El golpe parece que no afecta al rival.");
+        }
+    }
+
+    IEnumerator ShowDamageDetailsPlayer(DamageDetails damageDetails)
+    {
+        if (damageDetails.Critical > 1f)
+        {
+            yield return dialogBox.TypeDialog("¡Golpe critico!");
+        }
+    }
+
 
     private void Update()
     {

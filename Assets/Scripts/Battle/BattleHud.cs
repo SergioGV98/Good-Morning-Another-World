@@ -31,22 +31,22 @@ public class BattleHud : MonoBehaviour
         }
     }
 
-    public void UpdateHP(object character)
+    public IEnumerator UpdateHP(object character)
     {
         if (character is Enemy)
         {
             Enemy enemy = (Enemy)character;
-            hpBar.SetHP((float)enemy.HP / enemy.MaxHP);
+            yield return hpBar.SetHPSmooth((float)enemy.HP / enemy.MaxHP);
         }
         else if (character is Player)
         {
             Player player = (Player)character;
-            hpBar.SetHP((float)player.HP / player.MaxHP);
+            yield return hpBar.SetHPSmooth((float)player.HP / player.MaxHP);
         }
     }
 
-    public void UpdateMana(Player character)
+    public IEnumerator UpdateMana(Player character)
     {
-        manaBar.SetMana((float) character.mana / character.MaxMana);
+       yield return manaBar.SetManaSmooth((float) character.mana / character.MaxMana);
     }
 }

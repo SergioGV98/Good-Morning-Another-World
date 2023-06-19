@@ -52,8 +52,38 @@ public class LearnableMove
 
 public enum EnemyType
 {
-    Normal,
-    Fire,
-    Water,
-    Electric
+    Energía,
+    Caos,
+    Esencia,
+    Tecnología,
+    Cosmos,
+    Ilusión,
+    Naturaleza
+}
+
+
+public class TypeChart
+{
+    static float[][] chart = {
+        //                           Energia | Caos | Esencia | Tecnologia | Cosmos | Ilusion | Naturaleza
+        /* Energia */   new float[] {   1f,     2f,      2f,        0.5f,     0.5f,    0.5f,      2f },
+        /* Caos */      new float[] {   0.5f,   1f,      0.5f,      2f,       2f,      2f,        0.5f },
+        /* Esencia */   new float[] {   2f,     0.5f,    1f,        2f,       0.5f,    2f,        2f },
+        /* Tecnologia */new float[] {   2f,     2f,      2f,        1f,       0.5f,    0.5f,      2f },
+        /* Cosmos */    new float[] {   2f,     2f,      0.5f,      2f,       1f,      0.5f,      2f },
+        /* Ilusion */   new float[] {   0.5f,   2f,      2f,        0.5f,     0.5f,    1f,        2f },
+        /* Naturaleza */new float[] {   2f,     0.5f,    2f,        2f,       2f,      2f,         1f }
+    };
+
+    public static float GetEffectiveness(EnemyType attackType, EnemyType defenseType)
+    {
+        if (attackType == EnemyType.Energía || defenseType == EnemyType.Energía)
+        {
+            return 1;
+        }
+        int row = (int)attackType - 1;
+        int col = (int)defenseType - 1;
+
+        return chart[row][col];
+    }
 }
