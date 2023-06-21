@@ -35,13 +35,11 @@ public class BattleUnit : MonoBehaviour
 
     public void PlayerUnitEnterAnimation()
     {
-        // Encuentra el objeto PlayerUnit en la escena
         PlayerUnit playerUnit = FindObjectOfType<PlayerUnit>();
 
         if (playerUnit != null)
         {
             Vector3 originalPos = playerUnit.transform.localPosition;
-            // Mueve el objeto PlayerUnit a la posición deseada
             playerUnit.transform.localPosition = new Vector3(-500f, playerUnit.transform.localPosition.y);
             playerUnit.transform.DOLocalMoveX(originalPos.x, 1f);
         }
@@ -51,5 +49,27 @@ public class BattleUnit : MonoBehaviour
     {
         image.transform.localPosition = new Vector3(500f, originalPos.y);
         image.transform.DOLocalMoveX(originalPos.x, 1f);
+    }
+
+    public void PlayPlayerAttackAnimation()
+    {
+        var sequence = DOTween.Sequence();
+
+        PlayerUnit playerUnit = FindObjectOfType<PlayerUnit>();
+
+        if (playerUnit != null)
+        {
+            Vector3 originalPos = playerUnit.transform.localPosition;
+            sequence.Append(playerUnit.transform.DOLocalMoveX(originalPos.x + 50f, 0.25f));
+            sequence.Append(playerUnit.transform.DOLocalMoveX(originalPos.x, 0.25f));
+        }
+    }
+
+    public void EnemyPlayerAttackAnimation()
+    {
+        var sequence = DOTween.Sequence();
+        sequence.Append(image.transform.DOLocalMoveX(originalPos.x - 50f, 0.25f));
+        sequence.Append(image.transform.DOLocalMoveX(originalPos.x, 0.25f));
+        
     }
 }

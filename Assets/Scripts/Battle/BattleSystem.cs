@@ -65,6 +65,7 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.Busy;
         var magic = playerUnit.player.Moves[currentMagicMove];
         yield return dialogBox.TypeDialog($"{playerUnit.player.Base.Name} uso {magic.Base.name}");
+        enemyUnit.PlayPlayerAttackAnimation();
         var damageDetails = enemyUnit.Enemy.TakeDamage(magic, playerUnit.player);
         bool isOutMana = playerUnit.player.UpdateMana(magic);
         yield return enemyHud.UpdateHP(enemyUnit.Enemy);
@@ -86,6 +87,7 @@ public class BattleSystem : MonoBehaviour
 
         var move = enemyUnit.Enemy.GetRandomMove();
         yield return dialogBox.TypeDialog($"{enemyUnit.Enemy.Base.Name} uso {move.Base.Name}");
+        enemyUnit.EnemyPlayerAttackAnimation();
         var damageDetails = playerUnit.player.TakeDamage(move, enemyUnit.Enemy);
         yield return playerHud.UpdateHP(playerUnit.player);
         yield return ShowDamageDetailsPlayer(damageDetails);
