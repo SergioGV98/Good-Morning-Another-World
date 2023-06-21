@@ -9090,6 +9090,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _base: {fileID: 11400000, guid: 7b65504eb1aeff8418977827bc59515c, type: 2}
+  _playerUnit: {fileID: 0}
   level: 2
   isPlayerUnit: 0
 --- !u!114 &1682481603
