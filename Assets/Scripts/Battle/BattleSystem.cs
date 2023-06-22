@@ -22,11 +22,13 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] BattleHud enemyHud;
     [SerializeField] BattleDialogBox dialogBox;
 
+    public event Action<bool> OnBattleOver;
+
     BattleState state;
     byte currentAction;
     byte currentMagicMove;
 
-    private void Start()
+    public void StartBattle()
     {
         StartCoroutine(SetupBattle());
     }
@@ -78,6 +80,8 @@ public class BattleSystem : MonoBehaviour
         {
             yield return dialogBox.TypeDialog($"{enemyUnit.Enemy.Base.Name} fue derrotado.");
             enemyUnit.PlayEnemyFaintedAnimation();
+            yield return new WaitForSeconds(1f);
+            OnBattleOver(true);
         } else
         {
             StartCoroutine(EnemyMove());
@@ -101,6 +105,8 @@ public class BattleSystem : MonoBehaviour
         {
             yield return dialogBox.TypeDialog($"{playerUnit.player.Base.Name} fuiste derrotado.");
             enemyUnit.PlayPlayerFaintedAnimation();
+            yield return new WaitForSeconds(1f);
+            OnBattleOver(true);
         }
         else
         {
@@ -133,7 +139,7 @@ public class BattleSystem : MonoBehaviour
     }
 
 
-    private void Update()
+    public void HandleUpdate()
     {
         if(state == BattleState.PlayerAction)
         {

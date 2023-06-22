@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,9 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
     bool canMove = true;
+    public event Action OnEncounter;
+    private bool isEncounterWaiting = false; // Variable para controlar si se está esperando un encuentro
+    private float encounterWaitTime = 0.75f; // Tiempo de espera entre encuentros
 
     // Variables relacionadas con las peleas
     public LayerMask triggerFights;
@@ -28,7 +32,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void FixedUpdate()
+    public void HandleUpdate()
     {
         if (canMove)
         {
@@ -113,12 +117,26 @@ public class PlayerController : MonoBehaviour
     }
     private void CheckForEncounters()
     {
-        if (Physics2D.OverlapCircle(transform.position, 0.1f, triggerFights) != null)
+        if (!isEncounterWaiting && Physics2D.OverlapCircle(transform.position, 0.1f, triggerFights) != null)
         {
-            if (Random.Range(1, 1000) <= 10)
-            {
-                Debug.Log("Pelea");
-            }
+            StartCoroutine(EncounterCoroutine());
         }
+    }
+
+    private IEnumerator EncounterCoroutine()
+    {
+        isEncounterWaiting = true; // Se establece que se está esperando un encuentro
+        yield return new WaitForSeconds(encounterWaitTime);
+
+        int aleatorio = UnityEngine.Random.Range(1, 101);
+        Debug.Log(aleatorio);
+        if (aleatorio <= 10)
+        {
+            animator.SetBool("isMoving", false);
+            Debug.Log("Pelea");
+            OnEncounter();
+        }
+
+        isEncounterWaiting = false; // Se permite generar otro encuentro
     }
 }
