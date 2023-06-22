@@ -16,11 +16,13 @@ public class BattleUnit : MonoBehaviour
 
     Image image;
     Vector3 originalPos;
+    Color originalColor;
 
     public void Awake()
     {
         image = GetComponent<Image>();
         originalPos = image.transform.localPosition;
+        originalColor = image.color;
     }
 
     public void Setup()
@@ -72,4 +74,51 @@ public class BattleUnit : MonoBehaviour
         sequence.Append(image.transform.DOLocalMoveX(originalPos.x, 0.25f));
         
     }
+
+    public void EnemyPlayHitAnimation()
+    {
+        var sequence = DOTween.Sequence();
+        sequence.Append(image.DOColor(Color.red, 0.1f));
+        sequence.Append(image.DOColor(originalColor, 0.1f));
+    }
+
+    public void PlayerPlayHitAnimation()
+    {
+        var sequence = DOTween.Sequence();
+
+        PlayerUnit playerUnit = FindObjectOfType<PlayerUnit>();
+
+        if (playerUnit != null)
+        {
+            Image playerImage = playerUnit.GetComponent<Image>();
+            if (playerImage != null)
+            {
+                sequence.Append(playerImage.DOColor(Color.red, 0.1f));
+                sequence.Append(playerImage.DOColor(originalColor, 0.1f));
+            }
+        }
+    }
+
+    public void PlayEnemyFaintedAnimation()
+    {
+        var sequence = DOTween.Sequence();
+        sequence.Append(image.transform.DOLocalMoveY(originalPos.y - 150f, 0.5f));
+        sequence.Join(image.DOFade(0f, 0.5f));
+    }
+
+    public void PlayPlayerFaintedAnimation()
+    {
+        var sequence = DOTween.Sequence();
+
+        PlayerUnit playerUnit = FindObjectOfType<PlayerUnit>();
+
+        if (playerUnit != null)
+        {
+            Image playerImage = playerUnit.GetComponent<Image>();
+            Vector3 originalPos = playerUnit.transform.localPosition;
+            sequence.Append(playerImage.transform.DOLocalMoveY(originalPos.y - 150f, 0.5f));
+            sequence.Join(playerImage.DOFade(0f, 0.5f));
+        }
+    }
+
 }

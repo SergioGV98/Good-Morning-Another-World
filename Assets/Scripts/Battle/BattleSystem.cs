@@ -66,6 +66,8 @@ public class BattleSystem : MonoBehaviour
         var magic = playerUnit.player.Moves[currentMagicMove];
         yield return dialogBox.TypeDialog($"{playerUnit.player.Base.Name} uso {magic.Base.name}");
         enemyUnit.PlayPlayerAttackAnimation();
+        yield return new WaitForSeconds(0.5f);
+        enemyUnit.EnemyPlayHitAnimation();
         var damageDetails = enemyUnit.Enemy.TakeDamage(magic, playerUnit.player);
         bool isOutMana = playerUnit.player.UpdateMana(magic);
         yield return enemyHud.UpdateHP(enemyUnit.Enemy);
@@ -75,6 +77,7 @@ public class BattleSystem : MonoBehaviour
         if (damageDetails.Fainted)
         {
             yield return dialogBox.TypeDialog($"{enemyUnit.Enemy.Base.Name} fue derrotado.");
+            enemyUnit.PlayEnemyFaintedAnimation();
         } else
         {
             StartCoroutine(EnemyMove());
@@ -88,6 +91,8 @@ public class BattleSystem : MonoBehaviour
         var move = enemyUnit.Enemy.GetRandomMove();
         yield return dialogBox.TypeDialog($"{enemyUnit.Enemy.Base.Name} uso {move.Base.Name}");
         enemyUnit.EnemyPlayerAttackAnimation();
+        yield return new WaitForSeconds(0.5f);
+        enemyUnit.PlayerPlayHitAnimation();
         var damageDetails = playerUnit.player.TakeDamage(move, enemyUnit.Enemy);
         yield return playerHud.UpdateHP(playerUnit.player);
         yield return ShowDamageDetailsPlayer(damageDetails);
@@ -95,6 +100,7 @@ public class BattleSystem : MonoBehaviour
         if (damageDetails.Fainted)
         {
             yield return dialogBox.TypeDialog($"{playerUnit.player.Base.Name} fuiste derrotado.");
+            enemyUnit.PlayPlayerFaintedAnimation();
         }
         else
         {
