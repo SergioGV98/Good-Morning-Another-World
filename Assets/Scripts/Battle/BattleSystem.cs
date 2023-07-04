@@ -247,6 +247,11 @@ public class BattleSystem : MonoBehaviour
             dialogBox.EnableMagicSelector(false);
             dialogBox.EnableDialogText(true);
             StartCoroutine(ShowNoManaMessage());
+        } else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            dialogBox.EnableMagicSelector(false);
+            dialogBox.EnableDialogText(true);
+            PlayerAction();
         }
     }
 
