@@ -62,6 +62,17 @@ public class BattleSystem : MonoBehaviour
         dialogBox.EnableMagicSelector(true);
     }
 
+    void PlayerAttack()
+    {
+        state = BattleState.Busy;
+        dialogBox.EnableActionSelector(false);
+        dialogBox.EnableMagicSelector(false);
+        dialogBox.EnableDialogText(true);
+
+        StartCoroutine(PerformPlayerAttack());
+    }
+
+
     IEnumerator PerformPlayerMagic()
     {
         state = BattleState.Busy;
@@ -138,6 +149,26 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+    IEnumerator PerformPlayerAttack()
+    {
+        state = BattleState.Busy;
+        var damageDetails = enemyUnit.Enemy.TakeDamageNormalAttack(playerUnit.player);
+        yield return dialogBox.TypeDialog($"{playerUnit.player.Base.Name} ha golpeado al rival.");
+        yield return enemyHud.UpdateHP(enemyUnit.Enemy);
+
+        if (damageDetails.Fainted)
+        {
+            yield return dialogBox.TypeDialog($"{enemyUnit.Enemy.Base.Name} fue derrotado.");
+            enemyUnit.PlayEnemyFaintedAnimation();
+            yield return new WaitForSeconds(1f);
+            OnBattleOver(true);
+        }
+        else
+        {
+            StartCoroutine(EnemyMove());
+        }
+    }
+
 
     public void HandleUpdate()
     {
@@ -173,6 +204,7 @@ public class BattleSystem : MonoBehaviour
         {
             if (currentAction == 0)
             {
+                PlayerAttack();
                 // Golpear
             }
             else if (currentAction == 1)
@@ -205,14 +237,24 @@ public class BattleSystem : MonoBehaviour
         }
         dialogBox.UpdateMagicSelection(currentMagicMove, playerUnit.player.Moves[currentMagicMove]);
 
-        // En un futuro comprobar si tienes mana para esa habilidad.
-
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && HaveMana(playerUnit.player.Moves[currentMagicMove]))
         {
             dialogBox.EnableMagicSelector(false);
             dialogBox.EnableDialogText(true);
             StartCoroutine(PerformPlayerMagic());
+        } else if (!HaveMana(playerUnit.player.Moves[currentMagicMove]) && Input.GetKeyDown(KeyCode.Space))
+        {
+            dialogBox.EnableMagicSelector(false);
+            dialogBox.EnableDialogText(true);
+            StartCoroutine(ShowNoManaMessage());
         }
+    }
+
+    IEnumerator ShowNoManaMessage()
+    {
+        yield return dialogBox.TypeDialog("No tienes suficiente mana para lanzar esta magia.");
+        yield return new WaitForSeconds(0.2f);
+        PlayerAction();
     }
 
     public Boolean HaveMana(Move magic)

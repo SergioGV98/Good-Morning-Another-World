@@ -98,6 +98,40 @@ public class Enemy
       
     }
 
+    public DamageDetails TakeDamageNormalAttack(Player attacker)
+    {
+        float critical = 1f;
+        if (Random.value * 100f < 5.25f)
+        {
+            critical = 2f;
+        }
+
+        var damageDetails = new DamageDetails()
+        {
+            Critical = critical,
+            Fainted = false
+        };
+
+        float modifiers = Random.Range(0.85f, 1f) * critical;
+        float a = (2 * attacker.Level + 10) / 250f;
+        float d = a * ((float)attacker.Attack / Defense) + 2;
+        d *= 1.1f; // Aumentar el daño un 10%
+        int damage = Mathf.FloorToInt(d * modifiers);
+        HP -= damage;
+
+        if (HP <= 0)
+        {
+            HP = 0;
+            damageDetails.Fainted = true;
+        }
+        else
+        {
+            damageDetails.Fainted = false;
+        }
+        return damageDetails;
+
+    }
+
     public Move GetRandomMove()
     {
         int r = Random.Range(0, Moves.Count);
