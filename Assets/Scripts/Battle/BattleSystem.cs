@@ -212,9 +212,10 @@ public class BattleSystem : MonoBehaviour
                 // Magia
                 PlayerMoveMagic();
             }
-            else if (currentAction == 3)
+            else if (currentAction == 2)
             {
                 // Huir
+                TryToEscape();
             }
         }
     }
@@ -254,6 +255,41 @@ public class BattleSystem : MonoBehaviour
             PlayerAction();
         }
     }
+    void TryToEscape()
+    {
+        state = BattleState.PlayerAction;
+        dialogBox.EnableActionSelector(false);
+        dialogBox.EnableMagicSelector(false);
+        dialogBox.EnableDialogText(true);
+        float escapeProbability = 0.85f;
+        float random = UnityEngine.Random.value;
+        Debug.Log(random);
+
+        if (random < escapeProbability)
+        {
+            StartCoroutine(TryToEscape(true));
+        } else
+        {
+            StartCoroutine(TryToEscape(false));
+        }
+    }
+
+    IEnumerator TryToEscape(Boolean escaped)
+    {
+        state = BattleState.Busy;
+        if (escaped)
+        {
+            yield return dialogBox.TypeDialog("Escapaste de la batalla exitosamente.");
+            yield return new WaitForSeconds(0.1f);
+            OnBattleOver(true);
+        }
+        else
+        {
+            yield return dialogBox.TypeDialog("No lograste escapar de la batalla.");
+            yield return new WaitForSeconds(0.1f);
+            StartCoroutine(EnemyMove());
+        }
+    }
 
     IEnumerator ShowNoManaMessage()
     {
@@ -270,5 +306,6 @@ public class BattleSystem : MonoBehaviour
         }
         return false;
     }
+
 
 }
