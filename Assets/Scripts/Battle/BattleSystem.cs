@@ -1,3 +1,4 @@
+using Microsoft.Unity.VisualStudio.Editor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -117,6 +118,7 @@ public class BattleSystem : MonoBehaviour
             yield return dialogBox.TypeDialog($"{playerUnit.player.Base.Name} fuiste derrotado.");
             enemyUnit.PlayPlayerFaintedAnimation();
             yield return new WaitForSeconds(1f);
+            playerUnit.ResetSpriteAndPosition();
             OnBattleOver(true);
         }
         else
@@ -306,6 +308,5 @@ public class BattleSystem : MonoBehaviour
         }
         return false;
     }
-
 
 }

@@ -11,13 +11,35 @@ public class PlayerUnit : MonoBehaviour
 
     public Player player { get; set; }
 
+    private Image image;
+    private Sprite originalSprite;
+    private Vector3 originalPosition;
+    private Color originalColor;
+
+    private void Awake()
+    {
+        image = GetComponent<Image>();
+    }
+
     public void Setup()
     {
         player = new Player(_base, level);
-
         if (isPlayerUnit)
         {
-            GetComponent<Image>().sprite = player.Base.FrontSprite;
+            image.sprite = player.Base.FrontSprite;
+            originalSprite = image.sprite;
+            originalPosition = transform.localPosition;
+            originalColor = image.color;
+        }
+    }
+
+    public void ResetSpriteAndPosition()
+    {
+        if (isPlayerUnit)
+        {
+            image.sprite = originalSprite;
+            transform.localPosition = originalPosition;
+            image.color = originalColor;
         }
     }
 }

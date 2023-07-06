@@ -5723,6 +5723,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 1021506330652677455, guid: 69414fb867227f845ba60a373effe5d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4806555966889614860, guid: 69414fb867227f845ba60a373effe5d3, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -5766,6 +5770,10 @@ PrefabInstance:
     - target: {fileID: 4806555966889614860, guid: 69414fb867227f845ba60a373effe5d3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6456753184196170749, guid: 69414fb867227f845ba60a373effe5d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

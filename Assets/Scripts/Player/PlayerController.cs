@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
 
         int aleatorio = UnityEngine.Random.Range(1, 101);
         Debug.Log(aleatorio);
-        if (aleatorio <= 10)
+        if (aleatorio <= 20)
         {
             animator.SetBool("isMoving", false);
             Debug.Log("Pelea");
