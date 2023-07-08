@@ -9,7 +9,12 @@ public class Volumen : MonoBehaviour
     [SerializeField] private AudioMixer myMixer;
     [SerializeField] private Slider sliderSFX;
     [SerializeField] private Slider sliderBGM;
-    public Image imagenMute;
+    [SerializeField] private Image imagenMuteBGM;
+    [SerializeField] private Image imagenMuteSFX;
+    [SerializeField] private Image imagenLowVolumeSFX;
+    [SerializeField] private Image imagenNormalVolumeSFX;
+    [SerializeField] private Image imagenLowVolumeBGM;
+    [SerializeField] private Image imagenNormalVolumeBGM;
 
     private void Start()
     {
@@ -30,6 +35,7 @@ public class Volumen : MonoBehaviour
         {
             SetBGMVolume();
         }
+        EstoyMuted();
     }
 
     public void SetSFXVolume()
@@ -38,6 +44,7 @@ public class Volumen : MonoBehaviour
         myMixer.SetFloat("SFX", Mathf.Log10(volumeSFX) * 20);
 
         PlayerPrefs.SetFloat("SFX", volumeSFX);
+        EstoyMuted();
     }
 
     public void SetBGMVolume()
@@ -46,6 +53,7 @@ public class Volumen : MonoBehaviour
         myMixer.SetFloat("BGM", Mathf.Log10(volumeBGM) * 20);
 
         PlayerPrefs.SetFloat("BGM", volumeBGM);
+        EstoyMuted();
     }
 
     private void LoadSFXVolumen()
@@ -62,13 +70,43 @@ public class Volumen : MonoBehaviour
 
     public void EstoyMuted()
     {
-        if (sliderSFX.value == 0)
+        myMixer.GetFloat("SFX", out float volumeSFX);
+        myMixer.GetFloat("BGM", out float volumeBGM);
+
+        imagenMuteSFX.enabled = false;
+        imagenLowVolumeSFX.enabled = false;
+        imagenNormalVolumeSFX.enabled = false;
+
+        if (volumeSFX <= -80f)
         {
-            imagenMute.enabled = true;
+            imagenMuteSFX.enabled = true;
+        }
+        else if (volumeSFX <= -6f)
+        {
+            imagenLowVolumeSFX.enabled = true;
         }
         else
         {
-            imagenMute.enabled = false;
+            imagenNormalVolumeSFX.enabled = true;
+        }
+
+        imagenMuteBGM.enabled = false;
+        imagenLowVolumeBGM.enabled = false;
+        imagenNormalVolumeBGM.enabled = false;
+
+        if (volumeBGM <= -80f)
+        {
+            imagenMuteBGM.enabled = true;
+        }
+        else if (volumeBGM <= -6f)
+        {
+            imagenLowVolumeBGM.enabled = true;
+        }
+        else
+        {
+            imagenNormalVolumeBGM.enabled = true;
         }
     }
+
+
 }
