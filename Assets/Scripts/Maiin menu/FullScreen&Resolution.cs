@@ -75,10 +75,11 @@ public class FullScreen : MonoBehaviour
 
     public void CambiarResolucion(int indiceResolucion)
     {
-        PlayerPrefs.SetInt("resolucionGuardada", resolucionesDropDown.value);
-
+        indiceResolucion = resolucionesDropDown.value;
+        PlayerPrefs.SetInt("resolucionGuardada", indiceResolucion);
         Resolution resolution = resoluciones[indiceResolucion];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        Debug.Log("Has cambiado la resolucion a " + resolution);
     }
 
 }

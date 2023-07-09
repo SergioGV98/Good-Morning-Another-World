@@ -20,5 +20,6 @@ public class CalidadGrafica : MonoBehaviour
         QualitySettings.SetQualityLevel(dropdown.value);
         PlayerPrefs.SetInt("numeroDeCalidad", dropdown.value);
         calidad = dropdown.value;
+        Debug.Log(dropdown.options[calidad].text);
     }
 }

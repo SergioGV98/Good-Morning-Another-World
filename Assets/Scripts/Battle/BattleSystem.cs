@@ -1,12 +1,10 @@
-using Microsoft.Unity.VisualStudio.Editor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static Enemy;
 
-public enum BattleState
-{
+public enum BattleState{
     Start,
     PlayerAction,
     PlayerMove,
