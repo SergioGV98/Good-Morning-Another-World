@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Volumen : MonoBehaviour
 {
-    [SerializeField] private AudioMixer myMixer;
+    [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private Slider sliderSFX;
     [SerializeField] private Slider sliderBGM;
     [SerializeField] private Image imagenMuteBGM;
@@ -16,62 +16,31 @@ public class Volumen : MonoBehaviour
     [SerializeField] private Image imagenLowVolumeBGM;
     [SerializeField] private Image imagenNormalVolumeBGM;
 
-    private void Start()
+    private void Awake()
     {
-        if (PlayerPrefs.HasKey("SFX"))
-        {
-            LoadSFXVolumen();
-        }
-        else
-        {
-            SetSFXVolume();
-        }
-
-        if (PlayerPrefs.HasKey("BGM"))
-        {
-            LoadBGMVolume();
-        }
-        else
-        {
-            SetBGMVolume();
-        }
-        EstoyMuted();
+        ChangueImagenVolume();
     }
 
-    public void SetSFXVolume()
+    public void SetVolumeSFX()
     {
-        float volumeSFX = sliderSFX.value;
-        myMixer.SetFloat("SFX", Mathf.Log10(volumeSFX) * 20);
-
-        PlayerPrefs.SetFloat("SFX", volumeSFX);
-        EstoyMuted();
+        audioMixer.SetFloat("SFX", Mathf.Log10(sliderSFX.value) * 20);
+        PlayerPrefs.SetFloat("SFXVolume", sliderSFX.value);
+        PlayerPrefs.Save();
+        ChangueImagenVolume();
     }
 
-    public void SetBGMVolume()
+    public void SetVolumeBGM()
     {
-        float volumeBGM = sliderBGM.value;
-        myMixer.SetFloat("BGM", Mathf.Log10(volumeBGM) * 20);
-
-        PlayerPrefs.SetFloat("BGM", volumeBGM);
-        EstoyMuted();
+        audioMixer.SetFloat("BGM", Mathf.Log10(sliderBGM.value) * 20);
+        PlayerPrefs.SetFloat("BGMVolume", sliderBGM.value);
+        PlayerPrefs.Save();
+        ChangueImagenVolume();
     }
 
-    private void LoadSFXVolumen()
+    public void ChangueImagenVolume()
     {
-        sliderSFX.value = PlayerPrefs.GetFloat("SFX");
-        SetSFXVolume();
-    }
-
-    private void LoadBGMVolume()
-    {
-        sliderBGM.value = PlayerPrefs.GetFloat("BGM");
-        SetBGMVolume();
-    }
-
-    public void EstoyMuted()
-    {
-        myMixer.GetFloat("SFX", out float volumeSFX);
-        myMixer.GetFloat("BGM", out float volumeBGM);
+        audioMixer.GetFloat("SFX", out float volumeSFX);
+        audioMixer.GetFloat("BGM", out float volumeBGM);
 
         imagenMuteSFX.enabled = false;
         imagenLowVolumeSFX.enabled = false;

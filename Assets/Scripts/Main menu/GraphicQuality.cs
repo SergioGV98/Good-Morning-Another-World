@@ -1,11 +1,10 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FullScreen : MonoBehaviour
+public class GraphicQuality : MonoBehaviour
 {
     [SerializeField] private Toggle fullscreenToggle;
     private string fullscreenKey = "FullScreen";
