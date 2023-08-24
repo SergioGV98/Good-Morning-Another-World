@@ -20,6 +20,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] BattleUnit enemyUnit;
     [SerializeField] BattleHud enemyHud;
     [SerializeField] BattleDialogBox dialogBox;
+    [SerializeField] MoneyManager moneyManager;
 
     public event Action<bool> OnBattleOver;
 

@@ -15,10 +15,10 @@ MonoBehaviour:
   name: Slime
   frontSprite: {fileID: 60251746, guid: c4beb52344a4b294b8cd3485a0d0dca4, type: 3}
   type: 6
-  maxHp: 20
+  maxHp: 1
   attack: 10
   defense: 2
   speed: 8
   learnableMoves:
-  - move: {fileID: 11400000, guid: e67a7df1030825f46bbff06b35941c82, type: 2}
+  - move: {fileID: 11400000, guid: c4c7e3b65ec9b3941847d3da52d7b5af, type: 2}
     level: 0
